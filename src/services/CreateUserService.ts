@@ -1,7 +1,8 @@
 import { getCustomRepository } from "typeorm"
-import { hash } from "bcryptjs"
 import { UserRepository } from "../repositories/UserRepository";
 
+import { hash } from "bcryptjs"
+import {sign }  from "jsonwebtoken"
 
 interface IUserRequest{
     email: string;
@@ -30,23 +31,25 @@ class CreateUserService{
         }
 
 
-        const emailNotExist = await userRepository.findOne({
+        const userAlreadyExists = await userRepository.findOne({
             email
         });
 
-        if(emailNotExist){
+        if(userAlreadyExists){
            throw new Error("email já cadastrado!"); 
         }
 
-        const  passwordCript = await hash(password,8);
+        const  passwordHash = await hash(password,8);
 
         const user = userRepository.create({
             email,
             name, 
-            password: passwordCript
+            password: passwordHash
         })
 
         await userRepository.save(user);
+
+        
 
         return user;
 
