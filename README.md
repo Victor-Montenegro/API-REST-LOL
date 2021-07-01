@@ -5,11 +5,27 @@
     url: http://localhost:3000
 
     route para cadastrar usuarios: http://localhost:3000/users
-    Ex: passando os dados em json
+    Ex: passando os dados em json 
+    body:
         {
             "name: "gabriel",
             "email": "gabriel@gabriel.com",
             "password": "1213141516",
+        }
+
+    route para realizar o login do usuario: http://localhost:3000/login
+    Ex: passando os dados em json
+    body:
+        {
+            "email": "gabriel@gabriel.com",
+            "password": "1213141516",
+        }
+    
+    route para cadastrar o summoner: http://localhost:3000/summoners
+    Ex: passando os dados em json
+    body: 
+        {
+            "summonerName": "OldWolfKing"
         }
  
 

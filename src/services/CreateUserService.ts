@@ -2,7 +2,7 @@ import { getCustomRepository } from "typeorm"
 import { UserRepository } from "../repositories/UserRepository";
 
 import { hash } from "bcryptjs"
-import {sign }  from "jsonwebtoken"
+
 
 interface IUserRequest{
     email: string;
@@ -16,12 +16,7 @@ class CreateUserService{
 
         const userRepository = getCustomRepository(UserRepository);
 
-        if(!email){
-
-            throw new Error("email incorreto!");
-        }
-
-        if(!name){
+        if(!name || name === " "){
             throw new Error("name incorreto!");
         }
 

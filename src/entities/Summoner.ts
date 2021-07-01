@@ -1,5 +1,6 @@
 import { Entity, PrimaryColumn, Column, JoinColumn,ManyToOne } from "typeorm"
 
+import { Exclude } from "class-transformer"
 import { v4 as uuid} from "uuid"
 
 import { User} from "./User"
@@ -25,6 +26,7 @@ class Summoner{
     @Column({unique:true})
     summonerId: number;
 
+    @Exclude()
     @Column()
     userId: string;
 

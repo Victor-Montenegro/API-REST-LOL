@@ -7,14 +7,35 @@ interface ISummonerRequest{
     AccountId: string;
     SummonerLevel: number;
     ProfileIconId: number;
-    summonerId: string;
+    summonerId: number;
     userId:string;
 }
 
 class CreateSummonerService{
 
     async execute({AccountId,NickName,ProfileIconId,SummonerLevel,summonerId,userId}: ISummonerRequest){
-        
+
+        const summonerRepository = getCustomRepository(SummonerRepository);
+
+        if((!NickName) || NickName === " " ){
+
+            throw new Error(`Nick name incorreto!`);
+        }
+
+        const summoner = summonerRepository.create({
+            AccountId,
+            NickName,
+            ProfileIconId,
+            SummonerLevel,
+            summonerId,
+            userId
+            
+        });
+
+        await summonerRepository.save(summoner);
+
+        return summoner;
+
     }
 }
 

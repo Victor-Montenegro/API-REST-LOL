@@ -23,7 +23,6 @@ export async function ensureAuthenticated(request:Request, response:Response, ne
         const { sub } = verify(token, "1228e9596867a43a24208ef95d37c6ca") as IPayload;
 
         request.user_id = sub;
-
         return next();
     } catch (error) {
 
