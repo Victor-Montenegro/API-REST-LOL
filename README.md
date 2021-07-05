@@ -4,29 +4,68 @@
 ## Instruções :wave:
     url: http://localhost:3000
 
-    route para cadastrar usuarios: http://localhost:3000/users
-    Ex: passando os dados em json 
+    Route para cadastrar usuarios: METHOD POST http://localhost:3000/users
+    Ex: Passando os dados em json 
     body:
         {
             "name: "gabriel",
             "email": "gabriel@gabriel.com",
             "password": "1213141516",
         }
-
-    route para realizar o login do usuario: http://localhost:3000/login
-    Ex: passando os dados em json
+--------
+    Route para realizar o login do usuario: METHOD POST http://localhost:3000/login
+    Ex: Passando os dados em json
     body:
         {
             "email": "gabriel@gabriel.com",
             "password": "1213141516",
         }
+    response:
+        {
+            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RlQHRlc3RlLmNvbSIsImlhdCI6MTYyNTQ4NDA0MywiZXhwIjoxNjI1NTcwNDQzLCJzdWIiOiI0YzMzYmE1YS1kODAyLTQwZWYtYjlmMi1kNDk1OGFjMjhjZmYifQ.oXzGZvoQYdP2N08OkCCG7gMO6lnLfSC16NpgL1SNfic"
+        }
+----
+    Route para cadastrar o summoner/jogador: METHOD POST http://localhost:3000/summoners
+    Ex:
+    Selecione o metodo de autentificação bearer e passe o token
+
+    Passe a chave api_key do leagueOfleagends na query:
+
+        http://localhost:3000/summoners/?api_key=R29sf-2ddsf
     
-    route para cadastrar o summoner: http://localhost:3000/summoners
-    Ex: passando os dados em json
+    Passando os dados em json no body
+    
     body: 
         {
             "summonerName": "OldWolfKing"
         }
+---    
+    Route para visualizar a lista de summoners/jogadores: METHOD GET http://localhost:3000/summoner
+    Ex:
+    Selecione o metodo de autentificação bearer e passe o token
+---
+    Router para atualizar dados do jogador: METHOD PUT http://localhost:3000/summoner
+    Ex:
+    Selecione o metodo de autentificação bearer e passe o token
+    
+    Passando os dados em json no body
+    
+    body: 
+        {
+            "summonerName":"OldWolfKingMaster",
+            "summonerLevel": 550
+        }
+----
+    Router para remove o jogador/summoner: METHOD DELETE http://localhost:3000/summoner/:summonerId
+    
+    Deve passar como params o summonerId do jogador/summoner
+
+    EX: 
+    http://localhost:3000/summoner/7AMCHa09UVSoSIqOF3rMtyCoI1HZMYXH3spsOh7tqo_OmQ
+    
+
+
+    
  
 
 # Victor Montenegro 

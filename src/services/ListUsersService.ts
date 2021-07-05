@@ -1,4 +1,4 @@
-
+import { classToPlain} from "class-transformer";
 import {  getCustomRepository } from "typeorm";
 
 import { SummonerRepository } from "../repositories/SummonerRepository";
@@ -11,7 +11,7 @@ class ListUsersService{
 
         const summoner = await summonerRepository.find();
 
-        return summoner;
+        return classToPlain(summoner);
 
     }
 

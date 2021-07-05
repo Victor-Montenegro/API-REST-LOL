@@ -1,4 +1,4 @@
-import { getCustomRepository } from "typeorm"
+import { getCustomRepository } from "typeorm";
 import { UserRepository } from "../repositories/UserRepository";
 
 import { hash } from "bcryptjs"

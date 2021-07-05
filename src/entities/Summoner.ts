@@ -1,9 +1,10 @@
-import { Entity, PrimaryColumn, Column, JoinColumn,ManyToOne } from "typeorm"
+import { Exclude } from "class-transformer";
 
-import { Exclude } from "class-transformer"
-import { v4 as uuid} from "uuid"
+import { Entity, PrimaryColumn, Column, JoinColumn,ManyToOne } from "typeorm";
 
-import { User} from "./User"
+import { v4 as uuid} from "uuid";
+
+import { User} from "./User";
 
 @Entity("Summoner")
 class Summoner{
