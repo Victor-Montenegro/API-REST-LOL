@@ -12,6 +12,7 @@ import { CreateSummonerController } from "./controllers/CreateSummonerController
 import { ListUsersController } from "./controllers/ListUsersController";
 import { UpdateUserController } from "./controllers/UpdateUserController";
 import { DeleteUserController } from "./controllers/DeleteUserController"
+import { ExportSummonerController } from "./controllers/ExportSummonerController";
 
 const createUserController = new CreateUserController();
 const authenticateController = new AuthenticateController();
@@ -19,6 +20,7 @@ const createSummonerController = new CreateSummonerController()
 const listUsersController = new ListUsersController();
 const updateUserController = new UpdateUserController();
 const deleteUserController = new DeleteUserController();
+const exportSummonerController = new ExportSummonerController();
 
 const router = Router();
 
@@ -36,5 +38,7 @@ router.post(`/summoners`, ensureAuthenticated, createSummonerController.handle);
 router.get(`/summoner`, ensureAuthenticated, listUsersController.handle);
 router.put(`/summoner`,ensureAuthenticated,updateUserController.handle);
 router.delete(`/summoner/:summonerId`,ensureAuthenticated,deleteUserController.handle);
+
+router.post(`/export`, ensureAuthenticated, exportSummonerController.handle);
 
 export { router};

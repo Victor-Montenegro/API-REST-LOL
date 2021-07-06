@@ -21,18 +21,18 @@ class CreateSummonerController{
 
         const createSummonerService = new CreateSummonerService();
 
-        // const summoner = await createSummonerService.execute({
-        //     AccountId: accountId,
-        //     NickName : name,
-        //     ProfileIconId: profileIconId,
-        //     SummonerLevel: summonerLevel,
-        //     summonerId: id,
-        //     userId: user_id
-        // }) 
+        const summoner = await createSummonerService.execute({
+            AccountId: accountId,
+            NickName : name,
+            ProfileIconId: profileIconId,
+            SummonerLevel: summonerLevel,
+            summonerId: id,
+            userId: user_id
+        }) 
 
 
 
-        response.status(200).json(user_id);
+        response.status(200).json(summoner);
     }
 
 }
