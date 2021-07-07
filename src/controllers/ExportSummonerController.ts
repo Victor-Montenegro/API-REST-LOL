@@ -11,9 +11,11 @@ class ExportSummonerController{
 
         const exportSummonerService = new ExportSummonerService();
 
-        const summoner = await exportSummonerService.execute(api_key);
+        const wb = await exportSummonerService.execute(api_key);
 
-        return response.status(200).json(summoner);
+        const time = new Date().getTime();
+        
+        return wb.write(`${time}_summoner.xlsx`,response);
     }
 }
 

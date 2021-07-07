@@ -3,6 +3,7 @@ import { getCustomRepository} from "typeorm";
 import {SummonerRepository} from "../repositories/SummonerRepository";
 
 import axios from "axios";
+import xl from "excel4node";
 
 class ExportSummonerService{
 
@@ -17,61 +18,54 @@ class ExportSummonerService{
 
         const summoner = await summonerRepository.find();
 
-        let exportSummoner = [];
+        if(!summoner){
 
-        summoner.forEach(async records =>{
+            throw new Error(`não existem jogadores!`);
+        }
 
-            const { data } = await axios(`https://br1.api.riotgames.com/lol/league/v4/entries/by-summoner/${records.summonerId}/?api_key=${api_key}`);
+        let dataExport = [];
+
+        let summonersLeague = summoner.map(async records =>{
+
+            let { data } = await axios.get(`https://br1.api.riotgames.com/lol/league/v4/entries/by-summoner/${records.summonerId}/?api_key=${api_key}`)
 
             if(!(data.length == 0)){
                 
                 let wins = 0;
                 let losses = 0;
-                
+
                 data.forEach(la =>{
 
                     wins += la.wins;
-                    losses += la.losses;
-
-                    
+                    losses += la.losses;  
                 })
 
-                const teste = {
+                const exportSummoner = {
+                    summonerName: records.NickName,
                     summonerId: records.summonerId,
                     wins: wins.toString(),
                     losses: losses.toString(),
                 }
-
-                console.log(teste);
-
-                exportSummoner.push(teste);
-
-                console.log(exportSummoner);
+                dataExport.push(exportSummoner);
+            }else{
+                const exportSummoner = {
+                    summonerName: records.NickName,
+                    summonerId: records.summonerId,
+                    wins: "0",
+                    losses: "0",
+                }
+                dataExport.push(exportSummoner);
             }
-
-        })
-
-
-        return summoner;
-        /*
         
-         const wb = new xl.Workbook();
+        })
+    
+        await Promise.all(summonersLeague);
+
+        const wb = new xl.Workbook();
         const ws = wb.addWorksheet(`Summoners`);
 
-        const data = [
-            {
-                summonerId: "1892ioehjkdnsa",
-                vitorias: "122",
-                derrotas: "90"
-            },
-            {
-                summonerId: "112739uewjriodsfmcxzp",
-                vitorias: "222",
-                derrotas: "111"
-            }
-        ];
-
         const headingColumnNames = [
+            "summonerName",
             "summonerId",
             "vitorias",
             "derrotas",
@@ -85,7 +79,7 @@ class ExportSummonerService{
         })
 
         let rowIndex = 2;        
-        data.forEach(records =>{
+        dataExport.forEach(records =>{
 
             let columnIndex = 1;
             Object.keys(records).forEach( columnNames =>{
@@ -95,10 +89,8 @@ class ExportSummonerService{
             rowIndex++;
         })
 
-        await wb.write(`arquivo.xlsx`);
-        
-        
-        */
+        return wb;
+
     }
 }
 
